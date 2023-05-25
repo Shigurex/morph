@@ -4,9 +4,7 @@ int	main(void)
 {
 	Dict	dict;
 
-	//calcTime();
 	dict.loadDict("./dict/jumandic/");
-	//calcTime();
 
 	Viterbi	viterbi(dict);
 

@@ -38,7 +38,6 @@ vec_phrase_	Viterbi::getLongestSequence()
 	size_t		index = 0;
 	vec_phrase_	final_sequence;
 
-	// left_id right_id need check
 	final_sequence.push_back(Phrase("__BOS__", -1, 0, 0, "開始文字"));
 
 	while (index < size) {
@@ -55,7 +54,6 @@ vec_phrase_	Viterbi::getLongestSequence()
 		}
 	}
 
-	// left_id right_id need check
 	final_sequence.push_back(Phrase("__EOS__", 0, -1, 0, "終了文字"));
 
 	return (final_sequence);

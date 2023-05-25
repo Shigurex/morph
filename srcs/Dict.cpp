@@ -73,8 +73,8 @@ Phrase	Dict::findPhrase(str_ phrase)
 		throw Dict::NoMorePhraseInDictException();
 	}
 
-	std::cout << "[file] " << __FILE__ << " [line] " << __LINE__ << " [func] " << __FUNCTION__ << std::endl;
-	std::cout << "Phrase [ " << this->_dict[phrase].getPhrase() << " ] : cost [" << this->_dict[phrase].getCost() << "]" << std::endl;
+	//std::cout << "[file] " << __FILE__ << " [line] " << __LINE__ << " [func] " << __FUNCTION__ << std::endl;
+	//std::cout << "Phrase [ " << this->_dict[phrase].getPhrase() << " ] : cost [" << this->_dict[phrase].getCost() << "]" << std::endl;
 	return (this->_dict[phrase]);
 }
 
