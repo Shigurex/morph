@@ -62,10 +62,17 @@ void	Dict::loadMatrix(str_ matrix_path)
 
 Phrase	Dict::findPhrase(str_ phrase)
 {
-	std::cout << this->_dict[phrase].getPhrase() << std::endl;
-	std::cout << this->_dict[phrase].getLeftID() << std::endl;
-	std::cout << this->_dict[phrase].getRightID() << std::endl;
-	std::cout << this->_dict[phrase].getCost() << std::endl;
+	if (!this->_dict.contains(phrase)) {
+		map_str_phrase_::const_iterator	iter = this->_dict.lower_bound(phrase);
+		if (iter != this->_dict.end()) {
+			const str_&	key = iter->first;
+			if (key.compare(0, phrase.size(), phrase) == 0)
+				throw Dict::PhraseNotInDictException();
+		}
+		throw Dict::NoMorePhraseInDictException();
+	}
+
+	std::cout << "Phrase [ " << this->_dict[phrase].getPhrase() << " ] : cost [" << this->_dict[phrase].getCost() << "]" << std::endl;
 	return (this->_dict[phrase]);
 }
 

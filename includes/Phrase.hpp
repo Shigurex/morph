@@ -3,6 +3,7 @@
 
 # include	<vector>
 # include	<iostream>
+# include	<exception>
 # include	"define.hpp"
 
 class Phrase

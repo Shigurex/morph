@@ -28,6 +28,16 @@ class Dict
 		void	loadMatrix(str_ matrix_path);
 		Phrase	findPhrase(str_ phrase);
 		int		getConnectionCost(int left_id, int right_id);
+
+		class PhraseNotInDictException : public std::exception
+		{
+			virtual const char	*what() const throw() {return ("cannot find phrase in dictionary");};
+		};
+
+		class NoMorePhraseInDictException : public std::exception
+		{
+			virtual const char	*what() const throw() {return ("no more matching phrase in dictionary");};
+		};
 };
 
 #endif

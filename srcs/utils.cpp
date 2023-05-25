@@ -43,3 +43,22 @@ int	charLenByte(unsigned char c)
 	else
 		return (1);
 }
+
+void	calculateTime(void)
+{
+	static bool	is_set = false;
+	static std::chrono::system_clock::time_point	time_keep;
+
+	std::chrono::system_clock::time_point	current_time = std::chrono::system_clock::now();
+
+	if (!is_set) {
+		time_keep = current_time;
+		is_set = true;
+	}
+	else {
+		auto	dur = current_time - time_keep;
+		auto	msec = std::chrono::duration_cast<std::chrono::milliseconds>(dur).count();
+		std::cout << msec << " [msec]" << std::endl;
+		is_set = false;
+	}
+}

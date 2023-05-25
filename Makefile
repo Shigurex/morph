@@ -1,5 +1,5 @@
 CXX = c++
-CXXFLAGS = --std c++17 -MMD -MP
+CXXFLAGS = --std c++20 -MMD -MP
 
 INCLUDES = -I ./includes -I ./darts-clone/include
 

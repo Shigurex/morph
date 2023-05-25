@@ -2,7 +2,7 @@
 # define MORPH_HPP
 
 #include	<iostream>
-#include	"DoubleArray.hpp"
+#include	"Viterbi.hpp"
 #include	"Dict.hpp"
 #include	"utils.hpp"
 
