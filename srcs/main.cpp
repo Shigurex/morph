@@ -5,14 +5,14 @@ int	main(void)
 	Dict	dict;
 
 	dict.loadDict("./dict/jumandic/");
-
 	Viterbi	viterbi(dict);
 
-	std::cout << "Starting infinite loop" << std::endl;
+	std::cout << "input sequence" << std::endl;
 
 	str_	line;
 
 	while (true) {
+		std::cout << "> ";
 		std::cin >> line;
 		try
 		{

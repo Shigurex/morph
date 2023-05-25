@@ -84,4 +84,3 @@ int	Viterbi::calcTotalCost(vec_phrase_ sequence)
 	}
 	return (cost);
 }
-
