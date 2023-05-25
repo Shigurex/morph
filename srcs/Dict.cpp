@@ -11,6 +11,9 @@ void	Dict::loadDict(str_ dir_path)
 		else if (file_path == dir_path + "matrix.def")
 			this->loadMatrix(file_path);
 	}
+
+	std::cout << "[dict size] " << this->_dict.size() << std::endl;
+	std::cout << "[matrix size] " << this->_matrix.size() << std::endl;
 }
 
 void	Dict::loadCSV(str_ csv_path)
@@ -31,7 +34,6 @@ void	Dict::loadCSV(str_ csv_path)
 	ifs.close();
 
 	std::cout << csv_path << " loaded" << std::endl;
-	std::cout << "[dict size] " << this->_dict.size() << std::endl;
 }
 
 void	Dict::loadMatrix(str_ matrix_path)
@@ -57,7 +59,6 @@ void	Dict::loadMatrix(str_ matrix_path)
 	}
 
 	std::cout << matrix_path << " loaded" << std::endl;
-	std::cout << "[matrix size] " << this->_matrix.size() << std::endl;
 }
 
 Phrase	Dict::findPhrase(str_ phrase)
@@ -72,6 +73,7 @@ Phrase	Dict::findPhrase(str_ phrase)
 		throw Dict::NoMorePhraseInDictException();
 	}
 
+	std::cout << "[file] " << __FILE__ << " [line] " << __LINE__ << " [func] " << __FUNCTION__ << std::endl;
 	std::cout << "Phrase [ " << this->_dict[phrase].getPhrase() << " ] : cost [" << this->_dict[phrase].getCost() << "]" << std::endl;
 	return (this->_dict[phrase]);
 }

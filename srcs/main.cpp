@@ -4,9 +4,9 @@ int	main(void)
 {
 	Dict	dict;
 
-	//calculateTime();
+	//calcTime();
 	dict.loadDict("./dict/jumandic/");
-	//calculateTime();
+	//calcTime();
 
 	Viterbi	viterbi(dict);
 
@@ -20,9 +20,7 @@ int	main(void)
 		{
 			viterbi.setSequence(line);
 			vec_phrase_	vec_phrase = viterbi.getLongestSequence();
-			for (size_t i = 0; i < vec_phrase.size(); i++)
-				std::cout << vec_phrase[i].getPhrase() << " -> ";
-			std::cout << std::endl;
+			viterbi.printSequence(vec_phrase);
 		}
 		catch(const std::exception& e)
 		{

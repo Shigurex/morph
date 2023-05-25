@@ -1,5 +1,14 @@
 #include	"Phrase.hpp"
 
+Phrase::Phrase(str_ phrase, int left_id, int right_id, int cost, str_ part_of_speech)
+{
+	this->_phrase = phrase;
+	this->_left_id = left_id;
+	this->_right_id = right_id;
+	this->_cost = cost;
+	this->_part_of_speech = part_of_speech;
+}
+
 Phrase::Phrase(vec_str_ split_line)
 {
 	this->_phrase = split_line[0];
@@ -28,6 +37,11 @@ int	Phrase::getRightID(void) const
 int	Phrase::getCost(void) const
 {
 	return (this->_cost);
+}
+
+str_	Phrase::getPartOfSpeech(void) const
+{
+	return (this->_part_of_speech);
 }
 
 vec_str_	Phrase::getInfo(void) const

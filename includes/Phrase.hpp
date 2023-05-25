@@ -19,12 +19,14 @@ class Phrase
 	public:
 		Phrase() {}
 		Phrase(vec_str_ split_line);
+		Phrase(str_ phrase, int left_id, int right_id, int cost, str_ part_of_speech);
 		~Phrase() {};
 
 		str_		getPhrase(void) const;
 		int			getLeftID(void) const;
 		int			getRightID(void) const;
 		int			getCost(void) const;
+		str_		getPartOfSpeech(void) const;
 		vec_str_	getInfo(void) const;
 };
 

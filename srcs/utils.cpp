@@ -44,7 +44,7 @@ int	charLenByte(unsigned char c)
 		return (1);
 }
 
-void	calculateTime(void)
+void	calcTime(void)
 {
 	static bool	is_set = false;
 	static std::chrono::system_clock::time_point	time_keep;
