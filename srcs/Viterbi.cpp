@@ -70,10 +70,20 @@ void	Viterbi::printSequence(vec_phrase_ sequence)
 		<< "] : " << sequence[i].getPartOfSpeech() \
 		<< ", " << sequence[i].getCost() << std::endl;
 	}
+	std::cout << "Total cost : " << calcTotalCost(sequence) << std::endl;
 }
 
-//int	Viterbi::calcCost()
-//{
-//	;
-//}
+int	Viterbi::calcTotalCost(vec_phrase_ sequence)
+{
+	size_t	size = sequence.size();
+	int		cost = 0;
+
+	for (size_t i = 0; i < size; i++) {
+		cost += sequence[i].getCost();
+		if (sequence[i].getPartOfSpeech() == "終了文字")
+			break ;
+		cost += this->_dict.getConnectionCost(sequence[i].getRightID(), sequence[i + 1].getLeftID());
+	}
+	return (cost);
+}
 

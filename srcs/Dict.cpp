@@ -52,10 +52,10 @@ void	Dict::loadMatrix(str_ matrix_path)
 
 	while (std::getline(ifs, line)) {
 		split_line = split(line, " ");
-		int	left_id = std::stoi(split_line[0]);
-		int	right_id = std::stoi(split_line[1]);
+		int	right_id = std::stoi(split_line[0]);
+		int	left_id = std::stoi(split_line[1]);
 		int	connection_cost = std::stoi(split_line[2]);
-		this->_matrix[left_id * this->_num_id_types + right_id] = connection_cost;
+		this->_matrix[right_id * this->_num_id_types + left_id] = connection_cost;
 	}
 
 	std::cout << matrix_path << " loaded" << std::endl;
@@ -78,11 +78,11 @@ Phrase	Dict::findPhrase(str_ phrase)
 	return (this->_dict[phrase]);
 }
 
-int	Dict::getConnectionCost(int left_id, int right_id)
+int	Dict::getConnectionCost(int right_id, int left_id)
 {
-	int	pos = left_id * this->_num_id_types + right_id;
+	int	pos = right_id * this->_num_id_types + left_id;
 
 	if (pos < 0 || this->_num_id_types * this->_num_id_types <= pos)
 		exitError("matrix out of range", __FILE__, __LINE__, __FUNCTION__);
-	return (this->_matrix[left_id * _num_id_types + right_id]);
+	return (this->_matrix[right_id * _num_id_types + left_id]);
 }

@@ -23,7 +23,7 @@ class Viterbi
 		vec_phrase_	getPhrases(size_t index);
 		vec_phrase_	getLongestSequence();
 		void		printSequence(vec_phrase_ sequence);
-		//int			calcCost(vec_str_ vec_str);
+		int			calcTotalCost(vec_phrase_ sequence);
 };
 
 #endif
