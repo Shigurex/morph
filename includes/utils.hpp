@@ -10,6 +10,7 @@
 void		exitError(str_ message, str_ file, int line, str_ func);
 vec_str_	split(str_ str, str_ delim);
 int			charLenByte(unsigned char c);
+size_t		strLenMultibyte(str_ str);
 void		calcTime(void);
 
 #endif

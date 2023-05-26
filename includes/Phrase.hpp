@@ -17,7 +17,9 @@ class Phrase
 		vec_str_	_info;
 
 	public:
-		Phrase() {}
+		int			total_cost;
+
+		Phrase() : total_cost(0) {}
 		Phrase(vec_str_ split_line);
 		Phrase(str_ phrase, int left_id, int right_id, int cost, str_ part_of_speech);
 		~Phrase() {};

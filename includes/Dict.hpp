@@ -27,7 +27,7 @@ class Dict
 		void	loadCSV(str_ csv_path);
 		void	loadMatrix(str_ matrix_path);
 		Phrase	findPhrase(str_ phrase);
-		int		getConnectionCost(int left_id, int right_id);
+		int		getConnectionCost(int right_id, int left_id);
 
 		class PhraseNotInDictException : public std::exception
 		{

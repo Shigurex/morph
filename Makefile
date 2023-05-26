@@ -1,7 +1,7 @@
 CXX = c++
-CXXFLAGS = --std c++20 -MMD -MP
+CXXFLAGS = -Wall -Wextra -Werror --std c++20 -pedantic -MMD -MP -g -fsanitize=address
 
-INCLUDES = -I ./includes -I ./darts-clone/include
+INCLUDES = -I ./includes
 
 SRCDIR = srcs
 OBJDIR = objs

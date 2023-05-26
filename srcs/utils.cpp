@@ -44,6 +44,18 @@ int	charLenByte(unsigned char c)
 		return (1);
 }
 
+size_t	strLenMultibyte(str_ str)
+{
+	size_t	len = 0;
+	size_t	size = str.length();
+
+	for (size_t i = 0; i < size; ) {
+		i += charLenByte(str[i]);
+		len++;
+	}
+	return (len);
+}
+
 void	calcTime(void)
 {
 	static bool	is_set = false;
@@ -54,8 +66,7 @@ void	calcTime(void)
 	if (!is_set) {
 		time_keep = current_time;
 		is_set = true;
-	}
-	else {
+	} else {
 		auto	dur = current_time - time_keep;
 		auto	msec = std::chrono::duration_cast<std::chrono::milliseconds>(dur).count();
 		std::cout << msec << " [msec]" << std::endl;

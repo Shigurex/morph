@@ -5,24 +5,32 @@ int	main(void)
 	Dict	dict;
 
 	dict.loadDict("./dict/jumandic/");
-	Viterbi	viterbi(dict);
+	Analyze	analyze(dict);
 
 	std::cout << "input sequence" << std::endl;
 
-	str_	line;
+	str_		line;
 
 	while (true) {
 		std::cout << "> ";
 		std::cin >> line;
 		try
 		{
-			viterbi.setSequence(line);
-			vec_phrase_	vec_phrase = viterbi.getLongestSequence();
-			viterbi.printSequence(vec_phrase);
+			std::cout << "最小コスト法" << std::endl;
+			analyze.setSequence(line);
+			vec_phrase_	vec_phrase2 = analyze.getLowestCostSequence();
+			analyze.printSequence(vec_phrase2);
+
+			std::cout << std::endl;
+		
+			std::cout << "最長一致法" << std::endl;
+			analyze.setSequence(line);
+			vec_phrase_	vec_phrase = analyze.getLongestSequence();
+			analyze.printSequence(vec_phrase);
 		}
 		catch(const std::exception& e)
 		{
-			std::cerr << e.what() << std::endl;
+			std::cerr << "word not in map used" << std::endl;
 		}
 	}
 	return (0);

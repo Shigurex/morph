@@ -1,6 +1,6 @@
 #include	"Phrase.hpp"
 
-Phrase::Phrase(str_ phrase, int left_id, int right_id, int cost, str_ part_of_speech)
+Phrase::Phrase(str_ phrase, int left_id, int right_id, int cost, str_ part_of_speech) : total_cost(0)
 {
 	this->_phrase = phrase;
 	this->_left_id = left_id;
@@ -9,7 +9,7 @@ Phrase::Phrase(str_ phrase, int left_id, int right_id, int cost, str_ part_of_sp
 	this->_part_of_speech = part_of_speech;
 }
 
-Phrase::Phrase(vec_str_ split_line)
+Phrase::Phrase(vec_str_ split_line) : total_cost(0)
 {
 	this->_phrase = split_line[0];
 	this->_left_id = std::stoi(split_line[1]);
