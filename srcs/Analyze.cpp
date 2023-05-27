@@ -11,7 +11,11 @@ vec_phrase_	Analyze::getPhrases(size_t index)
 	vec_phrase_	vec_phrase;
 
 	for (size_t i = 0; i <= size - index; i++) {
-		try {vec_phrase.push_back(this->_dict.findPhrase(this->_sequence.substr(index, i)));}
+		try
+		{
+			vec_phrase_	vec_phrase2 = this->_dict.findPhrase(this->_sequence.substr(index, i));
+			vec_phrase.insert(vec_phrase.end(), vec_phrase2.begin(), vec_phrase2.end());
+		}
 		catch(const Dict::NoMorePhraseInDictException& e) {break ;}
 		catch(const Dict::PhraseNotInDictException& e) {}
 	}

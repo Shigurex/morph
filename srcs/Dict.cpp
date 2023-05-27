@@ -28,7 +28,7 @@ void	Dict::loadCSV(str_ csv_path)
 	while (std::getline(ifs, line)) {
 		split_line = split(line, ",");
 		Phrase		phrase(split_line);
-		_dict[split_line[0]] = phrase;
+		this->_dict.insert(std::make_pair(split_line[0], phrase));
 	}
 
 	ifs.close();
@@ -61,9 +61,14 @@ void	Dict::loadMatrix(str_ matrix_path)
 	std::cout << matrix_path << " loaded" << std::endl;
 }
 
-Phrase	Dict::findPhrase(str_ phrase)
+vec_phrase_	Dict::findPhrase(str_ phrase)
 {
-	if (!this->_dict.contains(phrase)) {
+	vec_phrase_	vec_phrase;
+
+	map_str_phrase_iter_	iter = this->_dict.find(phrase);
+	int						count = this->_dict.count(phrase);
+
+	if (iter == this->_dict.end()) {
 		map_str_phrase_::const_iterator	iter = this->_dict.lower_bound(phrase);
 		if (iter != this->_dict.end()) {
 			const str_&	key = iter->first;
@@ -73,9 +78,16 @@ Phrase	Dict::findPhrase(str_ phrase)
 		throw Dict::NoMorePhraseInDictException();
 	}
 
+	//std::cout << count << std::endl;
+	for (int i = 0; i < count; i++) {
+		Phrase	phrase = iter->second;
+		vec_phrase.push_back(phrase);
+		iter++;
+	}
+
 	//std::cout << "[file] " << __FILE__ << " [line] " << __LINE__ << " [func] " << __FUNCTION__ << std::endl;
 	//std::cout << "Phrase [ " << this->_dict[phrase].getPhrase() << " ] : cost [" << this->_dict[phrase].getCost() << "]" << std::endl;
-	return (this->_dict[phrase]);
+	return (vec_phrase);
 }
 
 int	Dict::getConnectionCost(int right_id, int left_id)

@@ -8,8 +8,6 @@
 # include	"Dict.hpp"
 # include	"define.hpp"
 
-typedef std::vector<Phrase> vec_phrase_;
-
 class Analyze
 {
 	private:

@@ -10,7 +10,9 @@
 # include	"utils.hpp"
 # include	"Phrase.hpp"
 
-typedef std::map<str_, Phrase>	map_str_phrase_;
+typedef std::multimap<str_, Phrase>	map_str_phrase_;
+typedef map_str_phrase_::iterator	map_str_phrase_iter_;
+typedef std::vector<Phrase> vec_phrase_;
 
 class Dict
 {
@@ -23,11 +25,11 @@ class Dict
 		Dict() {};
 		~Dict() {};
 
-		void	loadDict(str_ dir_path);
-		void	loadCSV(str_ csv_path);
-		void	loadMatrix(str_ matrix_path);
-		Phrase	findPhrase(str_ phrase);
-		int		getConnectionCost(int right_id, int left_id);
+		void		loadDict(str_ dir_path);
+		void		loadCSV(str_ csv_path);
+		void		loadMatrix(str_ matrix_path);
+		vec_phrase_	findPhrase(str_ phrase);
+		int			getConnectionCost(int right_id, int left_id);
 
 		class PhraseNotInDictException : public std::exception
 		{
