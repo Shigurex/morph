@@ -76,7 +76,7 @@ void	Analyze::_pushBackLowestCost(vec_phrase_& vec_phrase, Phrase phrase)
 void	Analyze::_connectNodeRecursive(size_t index, size_t index_multibyte)
 {
 	if (index_multibyte >= strLenMultibyte(this->_sequence)) {
-		Phrase	eos("__EOS__", -1, 0, 0, "終了文字");
+		Phrase	eos("__EOS__", 0, -1, 0, "終了文字");
 
 		Phrase	lowest_cost_node = this->_getLowestCostNode(index_multibyte);
 
