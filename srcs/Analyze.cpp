@@ -80,49 +80,6 @@ int	Analyze::_pushBackLowestCost(vec_phrase_& vec_phrase, Phrase phrase)
 	return (0);
 }
 
-//void	Analyze::_connectNodeRecursive(size_t index, size_t index_multibyte, Phrase &last_node)
-//{
-//	if (index_multibyte >= strLenMultibyte(this->_sequence)) {
-//		Phrase	eos("__EOS__", 0, -1, 0, "終了文字");
-
-//		Phrase	lowest_cost_node = this->_getLowestCostNode(index_multibyte);
-
-//		int	connection_cost = this->_dict.getConnectionCost(lowest_cost_node.getRightID(), eos.getLeftID());
-//		eos.total_cost = lowest_cost_node.total_cost + connection_cost + eos.getCost();
-
-//		this->_pushBackLowestCost(this->_node_next[index_multibyte], eos);
-//		return ;
-//	}
-
-//	vec_phrase_	phrase_option = this->getPhrases(index);
-//	size_t		phrase_num = phrase_option.size();
-
-//	if (phrase_num > 0) {
-//		//for (size_t i = 0; i < phrase_num; i++) {
-//		//	std::cout << "[" << index_multibyte << "] " << phrase_option[i].getPhrase() << " (" << phrase_option[i].total_cost << ")" << std::endl;
-//		//}
-//		for (size_t i = 0; i < phrase_num; i++) {
-//			str_	phrase = phrase_option[i].getPhrase();
-//			size_t	phrase_len = strLenMultibyte(phrase);
-
-//			Phrase	lowest_cost_node = this->_getLowestCostNode(index_multibyte);
-
-
-//			int	connection_cost = this->_dict.getConnectionCost(lowest_cost_node.getRightID(), phrase_option[i].getLeftID());
-//			phrase_option[i].total_cost = lowest_cost_node.total_cost + connection_cost + phrase_option[i].getCost();
-
-//			this->_pushBackLowestCost(this->_node_next[index_multibyte], phrase_option[i]);
-//			this->_pushBackLowestCost(this->_node_prev[index_multibyte + phrase_len], phrase_option[i]);
-
-//			this->_connectNodeRecursive(index + phrase.length(), index_multibyte + phrase_len);
-//		}
-//	} else {
-//		std::cout << "[file] " << __FILE__ << " [line] " << __LINE__ << " [func] " << __FUNCTION__ << std::endl;
-//		throw std::exception();
-//	}
-//}
-
-
 void	Analyze::_connectNodeRecursive(size_t index, size_t index_multibyte, Phrase& last_node)
 {
 	if (index_multibyte >= strLenMultibyte(this->_sequence)) {
@@ -146,8 +103,6 @@ void	Analyze::_connectNodeRecursive(size_t index, size_t index_multibyte, Phrase
 
 			int	connection_cost = this->_dict.getConnectionCost(last_node.getRightID(), phrases_of_index[i].getLeftID());
 			phrases_of_index[i].total_cost = last_node.total_cost + connection_cost + phrases_of_index[i].getCost();
-
-			//std::cout << phrases_of_index[i];
 
 			if (this->_pushBackLowestCost(this->_node_next[index_multibyte], phrases_of_index[i]))
 				continue ;
