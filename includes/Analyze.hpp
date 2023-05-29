@@ -16,9 +16,9 @@ class Analyze
 		vec_phrase_	*_node_prev;
 		vec_phrase_	*_node_next;
 
-		void		_connectNodeRecursive(size_t index, size_t index_multibyte);
+		void		_connectNodeRecursive(size_t index, size_t index_multibyte, Phrase& last_node);
 		Phrase		_getLowestCostNode(size_t index_multibyte);
-		void		_pushBackLowestCost(vec_phrase_& vec_phrase, Phrase phrase);
+		int			_pushBackLowestCost(vec_phrase_& vec_phrase, Phrase phrase);
 		vec_phrase_	_connectNodeBackward(void);
 
 	public:
