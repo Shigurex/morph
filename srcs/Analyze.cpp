@@ -62,54 +62,98 @@ Phrase	Analyze::_getLowestCostNode(size_t index_multibyte)
 	return (lowest_cost_phrase);
 }
 
-void	Analyze::_pushBackLowestCost(vec_phrase_& vec_phrase, Phrase phrase)
+int	Analyze::_pushBackLowestCost(vec_phrase_& vec_phrase, Phrase phrase)
 {
 	size_t	vec_phrase_size = vec_phrase.size();
 
 	for (size_t i = 0; i < vec_phrase_size; i++) {
-		if (vec_phrase[i].getPhrase() == phrase.getPhrase()) {
-			if (vec_phrase[i].total_cost > phrase.total_cost)
+		if (vec_phrase[i] == phrase) {
+			if (vec_phrase[i].total_cost > phrase.total_cost) {
 				vec_phrase[i].total_cost = phrase.total_cost;
-			return ;
+				return (0);
+			}
+			return (1);
 		}
 	}
 
 	vec_phrase.push_back(phrase);
+	return (0);
 }
 
-void	Analyze::_connectNodeRecursive(size_t index, size_t index_multibyte)
+//void	Analyze::_connectNodeRecursive(size_t index, size_t index_multibyte, Phrase &last_node)
+//{
+//	if (index_multibyte >= strLenMultibyte(this->_sequence)) {
+//		Phrase	eos("__EOS__", 0, -1, 0, "終了文字");
+
+//		Phrase	lowest_cost_node = this->_getLowestCostNode(index_multibyte);
+
+//		int	connection_cost = this->_dict.getConnectionCost(lowest_cost_node.getRightID(), eos.getLeftID());
+//		eos.total_cost = lowest_cost_node.total_cost + connection_cost + eos.getCost();
+
+//		this->_pushBackLowestCost(this->_node_next[index_multibyte], eos);
+//		return ;
+//	}
+
+//	vec_phrase_	phrase_option = this->getPhrases(index);
+//	size_t		phrase_num = phrase_option.size();
+
+//	if (phrase_num > 0) {
+//		//for (size_t i = 0; i < phrase_num; i++) {
+//		//	std::cout << "[" << index_multibyte << "] " << phrase_option[i].getPhrase() << " (" << phrase_option[i].total_cost << ")" << std::endl;
+//		//}
+//		for (size_t i = 0; i < phrase_num; i++) {
+//			str_	phrase = phrase_option[i].getPhrase();
+//			size_t	phrase_len = strLenMultibyte(phrase);
+
+//			Phrase	lowest_cost_node = this->_getLowestCostNode(index_multibyte);
+
+
+//			int	connection_cost = this->_dict.getConnectionCost(lowest_cost_node.getRightID(), phrase_option[i].getLeftID());
+//			phrase_option[i].total_cost = lowest_cost_node.total_cost + connection_cost + phrase_option[i].getCost();
+
+//			this->_pushBackLowestCost(this->_node_next[index_multibyte], phrase_option[i]);
+//			this->_pushBackLowestCost(this->_node_prev[index_multibyte + phrase_len], phrase_option[i]);
+
+//			this->_connectNodeRecursive(index + phrase.length(), index_multibyte + phrase_len);
+//		}
+//	} else {
+//		std::cout << "[file] " << __FILE__ << " [line] " << __LINE__ << " [func] " << __FUNCTION__ << std::endl;
+//		throw std::exception();
+//	}
+//}
+
+
+void	Analyze::_connectNodeRecursive(size_t index, size_t index_multibyte, Phrase& last_node)
 {
 	if (index_multibyte >= strLenMultibyte(this->_sequence)) {
 		Phrase	eos("__EOS__", 0, -1, 0, "終了文字");
 
-		Phrase	lowest_cost_node = this->_getLowestCostNode(index_multibyte);
-
-		int	connection_cost = this->_dict.getConnectionCost(lowest_cost_node.getRightID(), eos.getLeftID());
-		eos.total_cost = lowest_cost_node.total_cost + connection_cost + eos.getCost();
+		int	connection_cost = this->_dict.getConnectionCost(last_node.getRightID(), eos.getLeftID());
+		eos.total_cost = last_node.total_cost + connection_cost + eos.getCost();
 
 		this->_pushBackLowestCost(this->_node_next[index_multibyte], eos);
 		return ;
 	}
 
-	vec_phrase_	phrase_option = this->getPhrases(index);
-	size_t		phrase_num = phrase_option.size();
+	vec_phrase_	phrases_of_index = this->getPhrases(index);
+	size_t		phrases_of_index_num = phrases_of_index.size();
 
-	if (phrase_num > 0) {
-		for (size_t i = 0; i < phrase_num; i++) {
-			str_	phrase = phrase_option[i].getPhrase();
-			size_t	phrase_len = strLenMultibyte(phrase);
+	if (phrases_of_index_num > 0) {
+		for (size_t i = 0; i < phrases_of_index_num; i++) {
+			str_	phrase = phrases_of_index[i].getPhrase();
+			size_t	phrase_len = phrase.length();
+			size_t	phrase_len_multi = strLenMultibyte(phrase);
 
-			Phrase	lowest_cost_node = this->_getLowestCostNode(index_multibyte);
+			int	connection_cost = this->_dict.getConnectionCost(last_node.getRightID(), phrases_of_index[i].getLeftID());
+			phrases_of_index[i].total_cost = last_node.total_cost + connection_cost + phrases_of_index[i].getCost();
 
-			int	connection_cost = this->_dict.getConnectionCost(lowest_cost_node.getRightID(), phrase_option[i].getLeftID());
-			phrase_option[i].total_cost = lowest_cost_node.total_cost + connection_cost + phrase_option[i].getCost();
+			//std::cout << phrases_of_index[i];
 
-			this->_pushBackLowestCost(this->_node_next[index_multibyte], phrase_option[i]);
-			this->_pushBackLowestCost(this->_node_prev[index_multibyte + phrase_len], phrase_option[i]);
+			if (this->_pushBackLowestCost(this->_node_next[index_multibyte], phrases_of_index[i]))
+				continue ;
+			this->_pushBackLowestCost(this->_node_prev[index_multibyte + phrase_len_multi], phrases_of_index[i]);
 
-			//std::cout << "[" << index_multibyte << "] " << phrase << " (" << phrase_option[i].total_cost << ")" << std::endl;
-
-			this->_connectNodeRecursive(index + phrase.length(), index_multibyte + phrase_len);
+			this->_connectNodeRecursive(index + phrase_len, index_multibyte + phrase_len_multi, phrases_of_index[i]);
 		}
 	} else {
 		std::cout << "[file] " << __FILE__ << " [line] " << __LINE__ << " [func] " << __FUNCTION__ << std::endl;
@@ -145,8 +189,9 @@ vec_phrase_	Analyze::getLowestCostSequence(void)
 	this->_node_prev = new vec_phrase_[len_multibyte + 1];
 	this->_node_next = new vec_phrase_[len_multibyte + 1];
 
-	this->_node_prev[0].push_back(Phrase("__BOS__", -1, 0, 0, "開始文字"));
-	_connectNodeRecursive(0, 0);
+	Phrase	begin("__BOS__", -1, 0, 0, "開始文字");
+	this->_node_prev[0].push_back(begin);
+	_connectNodeRecursive(0, 0, begin);
 
 	final_sequence = _connectNodeBackward();
 

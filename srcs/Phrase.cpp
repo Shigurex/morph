@@ -48,3 +48,30 @@ vec_str_	Phrase::getInfo(void) const
 {
 	return (this->_info);
 }
+
+bool	Phrase::operator==(const Phrase& rhs) const
+{
+	vec_str_	info_lhs = this->getInfo();
+	size_t		size_lhs = info_lhs.size();
+
+	vec_str_	info_rhs = rhs.getInfo();
+	size_t		size_rhs = info_rhs.size();
+
+	if (size_lhs != size_rhs)
+		return (false);
+
+	for (size_t i = 0; i < size_lhs; i++) {
+		if (info_lhs[i] != info_rhs[i])
+			return (false);
+	}
+	return (true);
+}
+
+std::ostream&	operator<<(std::ostream& os, const Phrase &phrase)
+{
+	os << "[" << phrase.getPhrase() \
+	<< "] : " << phrase.getCost() \
+	<< ", " << phrase.getPartOfSpeech() \
+	<< " (" << phrase.total_cost << ")";
+	return (os);
+}

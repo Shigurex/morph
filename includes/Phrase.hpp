@@ -4,6 +4,7 @@
 # include	<vector>
 # include	<iostream>
 # include	<exception>
+# include	<fstream>
 # include	"define.hpp"
 
 class Phrase
@@ -30,6 +31,10 @@ class Phrase
 		int			getCost(void) const;
 		str_		getPartOfSpeech(void) const;
 		vec_str_	getInfo(void) const;
+
+		bool		operator==(const Phrase& rhs) const;
 };
+
+std::ostream&	operator<<(std::ostream& os, const Phrase &phrase);
 
 #endif
